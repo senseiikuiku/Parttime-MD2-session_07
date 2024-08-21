@@ -46,7 +46,7 @@ public class EmployeeManagement {
                 case 3:
                     System.out.println("\nLương của các nhân viên");
                     for (int i = 0; i < employees.size(); i++) {
-                        float salary = employees.get(i).calSalary();
+                        double salary = employees.get(i).calSalary();
                         System.out.println("Lương của " + employees.get(i).getName() + " là: " + salary);
                         System.out.println(i < employees.size() - 1 ? "------------" : "");
                     }
@@ -56,7 +56,7 @@ public class EmployeeManagement {
                     String name = sc.nextLine();
                     boolean check = false;
                     for (Employee value : employees) {
-                        if (value.getName().equals(name)) {
+                        if (value.getName().toLowerCase().contains(name.toLowerCase())) {
                             System.out.println("Đây là nhân viên tên: " + value.getName());
                             value.displayData();
                             check = true;
@@ -68,7 +68,15 @@ public class EmployeeManagement {
                     }
                     break;
                 case 5:
-                    System.out.println("\nChưa làm");
+                    System.out.print("\nNhập Id nhân viên cần cập nhật: ");
+                    String ID = sc.nextLine();
+                    for (Employee value : employees) {
+                        if (value.getId().equals(ID)) {
+                            value.inputData(sc);
+                            System.out.println("Cập nhật thành công!");
+                            break;
+                        }
+                    }
                     break;
                 case 6:
                     System.out.print("\nNhập Id cần xóa: ");
@@ -80,16 +88,17 @@ public class EmployeeManagement {
                         if (employee.getId().equals(id)) {
                             iterator.remove();
                             check2 = true;
+                            break;
                         }
                     }
                     if (!check2) {
                         System.out.println("Không có Id nhân viên đấy");
-                    }else{
+                    } else {
                         System.out.println("Đã xóa thành công");
                     }
                     break;
                 case 7:
-                    Collections.sort(employees, new Comparator<Employee>() {
+                    employees.sort(new Comparator<Employee>() {
                         @Override
                         public int compare(Employee o1, Employee o2) {
                             return Float.compare(o1.getSalary(), o2.getSalary());
@@ -103,7 +112,7 @@ public class EmployeeManagement {
                     }
                     break;
                 case 8:
-                    Collections.sort(employees, new Comparator<Employee>() {
+                    employees.sort(new Comparator<Employee>() {
                         @Override
                         public int compare(Employee o1, Employee o2) {
                             return o2.getName().compareTo(o1.getName());

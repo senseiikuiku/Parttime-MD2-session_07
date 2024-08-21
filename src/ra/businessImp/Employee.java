@@ -96,8 +96,7 @@ public class Employee implements IEmployee {
         System.out.print("Hoa hong: ");
         this.Commission = Float.parseFloat(sc.nextLine());
         System.out.print("Trang thai(true hoặc false): ");
-        this.Status = sc.nextBoolean();
-        sc.nextLine();
+        this.Status = Boolean.parseBoolean(sc.nextLine());
     }
 
     @Override
@@ -107,12 +106,12 @@ public class Employee implements IEmployee {
         System.out.println("Nam sinh: " + this.Name);
         System.out.println("He so luong: " + this.Rate);
         System.out.println("Hoa hong: " + this.Commission);
-        System.out.println("Luong: " + this.calSalary());
+        System.out.println("Luong: " + (double) this.calSalary());
         System.out.println("Trang thai: " + (this.Status ? "Dang lam viec" : "Nghi viec"));
     }
 
     public float calSalary() {
-        this.Salary = this.Rate * BASIC_SALARY + this.Commission;
+        this.Salary = (float) (this.Rate * BASIC_SALARY + this.Commission);
         this.Salary = Float.parseFloat(String.format("%.2f", this.Salary));
         return this.Salary;
     }
